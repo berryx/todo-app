@@ -1,0 +1,14 @@
+[
+  {
+    "title": "First task",
+    "isCompleted": false,
+    "date": "2023-04-27"
+  },
+  {
+    "title": "Second task"
+  },
+  {
+    "title": "Third task",
+    "isCompleted": true
+  }
+]
