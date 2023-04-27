@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+	<title>To-Do List</title>
+
+	<script defer src="main.js" type="module"></script>
+	<link href="style.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+	<h2> To-Do List</h2>
+
+	<button id="create-form-button" type="button">NEW</button>
+
+
+	<ul id="todolist">
+
+	</ul>
+</div>
+
+<template id="todo-template">
+	<li>
+		<input class="check" type="checkbox">
+		<span class="task" name="title"></span>
+		<span class="date">date</span>
+		<img alt="delete" class="delete-btn" src="./assets/delete-rounded.svg">
+	</li>
+</template>
+
+<div id="add-form-container" class="hidden">
+	<form id="add-form">
+		<button type="button" id="remove-form">X</button>
+		<textarea id="title" name="title" placeholder="New Task"></textarea>
+		<input id="date" name="date" type="date">
+		<button id="submit-btn" type="submit">Add task</button>
+	</form>
+</div>
+
+
+</body>
+</html>
