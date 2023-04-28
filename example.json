@@ -2,7 +2,7 @@
   {
     "title": "First task",
     "isCompleted": false,
-    "date": "2023-04-27"
+    "date": "2023-05-27"
   },
   {
     "title": "Second task"
@@ -10,5 +10,13 @@
   {
     "title": "Third task",
     "isCompleted": true
+  },
+  {
+    "title": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et",
+    "date": "2024-01-25"
+  },
+  {
+    "title": "New Task",
+    "date": "2024-04-24"
   }
 ]
