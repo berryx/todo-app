@@ -10,15 +10,47 @@
 	<link href="style.css" rel="stylesheet">
 </head>
 <body>
-<div class="container">
+<header>
+
+	<button id="menuIcon">
+		<svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24"><path d="M24 6h-24v-4h24v4zm0 4h-24v4h24v-4zm0 8h-24v4h24v-4z"/></svg>
+	</button>
 	<h2> To-Do List</h2>
 
-	<button id="create-form-button" type="button">NEW</button>
+	<button id="create-form-button" type="button">+</button>
 
 
-	<ul id="todolist">
+</header>
 
-	</ul>
+<main>
+
+	<nav id="sidebar">
+
+		<ul>
+			<li id="all">ALL</li>
+			<li id="today">Today</li>
+			<li id="week">Week</li>
+			<li id="month">Month</li>
+		</ul>
+	</nav>
+	<div class="container">
+
+		<ul id="todolist">
+
+		</ul>
+	</div>
+
+
+</main>
+
+
+<div class="hidden" id="add-form-container">
+	<form id="add-form">
+		<button id="remove-form" type="button">X</button>
+		<textarea id="title" name="title" placeholder="New Task"></textarea>
+		<input id="date" name="date" type="date">
+		<button id="submit-btn" type="submit">Add task</button>
+	</form>
 </div>
 
 <template id="todo-template">
@@ -26,19 +58,9 @@
 		<input class="check" type="checkbox">
 		<span class="task" name="title"></span>
 		<span class="date">date</span>
-		<img alt="delete" class="delete-btn" src="./assets/delete-rounded.svg">
+		<img alt="delete" class="delete-btn" src="./delete-rounded.svg">
 	</li>
 </template>
-
-<div id="add-form-container" class="hidden">
-	<form id="add-form">
-		<button type="button" id="remove-form">X</button>
-		<textarea id="title" name="title" placeholder="New Task"></textarea>
-		<input id="date" name="date" type="date">
-		<button id="submit-btn" type="submit">Add task</button>
-	</form>
-</div>
-
 
 </body>
 </html>

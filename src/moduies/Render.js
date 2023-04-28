@@ -1,3 +1,5 @@
+import {dateToLocaleString} from '/src/moduies/utils.js';
+
 const cloneTemplate = (id) => {
     return document.querySelector(id).content.cloneNode(true).firstElementChild;
 };
@@ -8,6 +10,15 @@ export default class Render {
         this.formContainer = document.querySelector("#add-form-container");
         this.todoListElement = document.querySelector("#todolist");
         this.displayFormBtn = document.querySelector("#create-form-button");
+
+        this.menuBtn = document.querySelector("#menuIcon");
+        this.sideMenu = document.querySelector("nav");
+
+        this.allSelect = document.querySelector("#all");
+        this.todaySelect = document.querySelector("#today");
+        this.weekSelect = document.querySelector("#week");
+        this.monthSelect = document.querySelector("#month");
+
     }
 
     updateTodoListRender(todos) {
@@ -17,11 +28,27 @@ export default class Render {
 
     onEvent(eventHandler) {
 
+        //Handle in Render
         this.displayFormBtn.addEventListener("click", this.displayForm.bind(this));
-        this.formContainer.querySelector("#add-form").addEventListener("submit", eventHandler);
         this.formContainer.querySelector("#remove-form").addEventListener("click", this.removeForm.bind(this));
+        this.menuBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                this.sideMenu.classList.toggle("hideSidebar");
+            },
+        );
 
-
+        //Handle by App
+        this.todaySelect.addEventListener("click", eventHandler);
+        this.todaySelect.addEventListener("click", this.handleMenu);
+        this.allSelect.addEventListener("click", eventHandler);
+        this.allSelect.addEventListener("click", this.handleMenu);
+        this.weekSelect.addEventListener("click", eventHandler);
+        this.weekSelect.addEventListener("click", this.handleMenu);
+        this.monthSelect.addEventListener("click", eventHandler);
+        this.monthSelect.addEventListener("click", this.handleMenu);
+        this.formContainer.querySelector("#add-form").addEventListener("submit", eventHandler);
         this.todoListElement.addEventListener("click", eventHandler);
         this.todoListElement.addEventListener("change", eventHandler);
         this.todoListElement.addEventListener("focusout", eventHandler);
@@ -61,12 +88,19 @@ export default class Render {
             }
             /** @type {HTMLSpanElement}*/
             const todoDate = todoItemElement.querySelector(".date");
-            todoDate.textContent = todo.date;
+            todoDate.textContent = dateToLocaleString(todo.date);
 
 
             this.todoElements.push(todoItemElement);
         }
     }
 
+    handleMenu(e) {
+        for (let selector of e.target.parentNode.children) {
+            selector.classList.remove("activated");
+        }
+        e.target.classList.add("activated");
 
+
+    }
 }

@@ -1,6 +1,5 @@
-import examples from "../assets/example.json"
+import examples from "../public/example.json"
 import Todo from '/src/moduies/Todo.js';
-import {formatDateToLocalString} from '/src/moduies/utils.js';
 export default class TodoList {
     todos = [];
     #observers = [];
