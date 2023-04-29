@@ -74,7 +74,7 @@ h2 {
 /*FORM TEMPLATE*/
 
 
-#add-form-container {
+.modal {
     z-index: 99;
     position: fixed;
     top: 0;
@@ -89,7 +89,7 @@ h2 {
     align-items: center;
 }
 
-#add-form-container form {
+.modal form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -101,7 +101,7 @@ h2 {
     width: 50%;
 }
 
-#add-form-container form textarea {
+.modal form textarea {
     height: 12rem;
     width: 100%;
     background-color: var(--floral-white);
@@ -112,12 +112,12 @@ h2 {
     resize: none;
 }
 
-#add-form-container form textarea:focus {
+.modal form textarea:focus {
     outline: 0;
 }
 
 
-#add-form-container form input[type="date"] {
+.modal form input[type="date"] {
     margin-left: 5px;
     padding: 0.5rem;
     background-color: var(--floral-white);
@@ -128,13 +128,13 @@ h2 {
     align-self: flex-start;
 }
 
-#add-form-container form input[type="date"]:hover {
+.modal form input[type="date"]:hover {
     background-color: var(--flame);
     color: var(--floral-white);
 }
 
 
-#add-form-container button {
+.modal button {
     align-self: flex-end;
     padding: 0.8rem;
     text-transform: uppercase;
@@ -146,7 +146,7 @@ h2 {
     border: 1px solid var(--flame);
 }
 
-#add-form-container button:hover {
+.modal button:hover {
     background-color: var(--flame);
     color: var(--floral-white);
 }
@@ -328,7 +328,7 @@ input[type="checkbox"] {
         font-size: 3rem;
     }
 
-    #add-form-container form {
+    .modal form {
         height: fit-content;
         width: 90%;
     }

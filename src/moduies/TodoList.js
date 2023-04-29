@@ -1,5 +1,6 @@
 import examples from "../public/example.json"
 import Todo from '/src/moduies/Todo.js';
+import {dateToLocaleString} from '/src/moduies/utils.js';
 export default class TodoList {
     todos = [];
     #observers = [];
@@ -48,16 +49,18 @@ export default class TodoList {
         this.notify(this.todos)
     }
 
-    editTodo(id, newTitle){
-        const index = this.todos.findIndex(todo => todo.id === id);
-        this.todos[index].title = newTitle;
-        this.notify(this.todos)
-    }
+
 
     editDate(id, newDate){
         const index = this.todos.findIndex(todo => todo.id === Number(id));
-        this.todos[index].date = formatDateToLocalString(new Date(Date.parse(newDate)));
+        this.todos[index].date = dateToLocaleString(new Date(Date.parse(newDate)));
         this.notify(this.todos);
+    }
+    editTodo (id, newTitle, newDate){
+       const index = this.todos.findIndex(todo => todo.id === id);
+       this.todos[index].title = newTitle;
+       this.todos[index].date = new Date(newDate);
+       this.notify(this.todos);
     }
 
 }

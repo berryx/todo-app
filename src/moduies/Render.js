@@ -1,4 +1,4 @@
-import {dateToLocaleString} from '/src/moduies/utils.js';
+import {dateToLocaleString, localeDateStringToIsoDateString} from '/src/moduies/utils.js';
 
 const cloneTemplate = (id) => {
     return document.querySelector(id).content.cloneNode(true).firstElementChild;
@@ -30,7 +30,7 @@ export default class Render {
 
         //Handle in Render
         this.displayFormBtn.addEventListener("click", this.displayForm.bind(this));
-        this.formContainer.querySelector("#remove-form").addEventListener("click", this.removeForm.bind(this));
+        this.formContainer.querySelector("#remove-form").addEventListener("click", this.removeAddTodoForm.bind(this));
         this.menuBtn.addEventListener("click", (e) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -48,10 +48,10 @@ export default class Render {
         this.weekSelect.addEventListener("click", this.handleMenu);
         this.monthSelect.addEventListener("click", eventHandler);
         this.monthSelect.addEventListener("click", this.handleMenu);
+
         this.formContainer.querySelector("#add-form").addEventListener("submit", eventHandler);
         this.todoListElement.addEventListener("click", eventHandler);
         this.todoListElement.addEventListener("change", eventHandler);
-        this.todoListElement.addEventListener("focusout", eventHandler);
 
     }
 
@@ -65,7 +65,28 @@ export default class Render {
 
     }
 
-    removeForm() {
+    displayEditTodo(e) {
+        let id = e.target.parentNode.id;
+        const todoEditFormContainer = cloneTemplate("#edit-todo-container");
+        let title = todoEditFormContainer.querySelector("#editTitle");
+        title.textContent = e.target.parentNode.querySelector(".task").textContent;
+        let date = todoEditFormContainer.querySelector("#editDate");
+        date.value = localeDateStringToIsoDateString(e.target.parentNode.querySelector(".date").textContent);
+
+        document.body.append(todoEditFormContainer);
+        const todoEditForm = todoEditFormContainer.querySelector("#editTodo")
+        todoEditForm.querySelector("#removeEditForm").addEventListener("click", (e) =>{
+            todoEditForm.reset();
+            id = null;
+            todoEditFormContainer.remove();
+        })
+
+
+        return [todoEditFormContainer, todoEditForm, id];
+
+    }
+
+    removeAddTodoForm(modal) {
         this.formContainer.classList.replace("visible", "hidden");
     }
 
@@ -75,22 +96,21 @@ export default class Render {
             const todoItemElement = cloneTemplate("#todo-template");
             todoItemElement.id = todo.id;
             /** @type {HTMLSpanElement}*/
-            const todoDescriptionElement = todoItemElement.querySelector(".task");
-            todoDescriptionElement.textContent = todo.title;
-            todoDescriptionElement.contentEditable = true;
+            const title = todoItemElement.querySelector(".task");
+            title.textContent = todo.title;
             /** @type {HTMLInputElement}*/
             const checkbox = todoItemElement.querySelector("input");
             checkbox.checked = todo.isCompleted;
             if (checkbox.checked) {
-                todoDescriptionElement.style.textDecoration = "line-through";
-                todoDescriptionElement.style.opacity = "0.6";
+                title.style.textDecoration = "line-through";
+                title.style.opacity = "0.6";
                 todoItemElement.classList.add("checked");
             }
             /** @type {HTMLSpanElement}*/
             const todoDate = todoItemElement.querySelector(".date");
             todoDate.textContent = dateToLocaleString(todo.date);
 
-
+            /** @type {HTMLButtonElement}*/
             this.todoElements.push(todoItemElement);
         }
     }

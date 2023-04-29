@@ -24,13 +24,16 @@ export default class App {
     handleEvent = (e) => {
         this.render.onEvent(this.handleEvent);
         switch (e.type) {
-            //When delete todo button click
             case "click" :
+                //When delete todo button click
                 if (e.target.classList.contains("delete-btn")) {
                     this.handleTodoDelete(e);
-                } else if (e.target.classList.contains("date")) {
-                    this.handleDateEdit(e);
-                } else if (e.target.id === "all" || e.target.id === "today" || e.target.id === "week" || e.target.id === "month") {
+                }
+                //When click on todo item except delete button and checkbox
+                else if (e.target.classList.contains("todo-item") || e.target.parentNode.classList.contains("todo-item") && !e.target.classList.contains("delete-btn") &&!e.target.classList.contains("check")){
+                    this.handleEdit(e);
+                }
+                else if (e.target.id === "all" || e.target.id === "today" || e.target.id === "week" || e.target.id === "month") {
                     this.handleDateRender(e);
                 }
                 break;
@@ -41,11 +44,6 @@ export default class App {
             case "change"  :
                 if (e.target.type === "checkbox") {
                     this.handleToggleTodo(e);
-                }
-                break;
-            case "focusout":
-                if (e.target.getAttribute("name") === "title") {
-                    this.handleEdit(e);
                 }
                 break;
         }
@@ -61,24 +59,23 @@ export default class App {
         this.todolist.toggleCompleted(id);
     };
 
-    handleEdit = (e) => {
-        const newTitle = e.target.textContent;
-        const id = e.target.parentNode.id;
-        this.todolist.editTodo(parseInt(id), newTitle);
+    handleEdit (e)  {
+
+        let [container, form, id] = this.render.displayEditTodo(e);
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            let data = new FormData(form);
+            let newTitle = data.get("title");
+            let newDate = data.get("date");
+            this.todolist.editTodo(parseInt(id), newTitle, newDate);
+            form.reset();
+
+           container.remove();
+
+        })
+
     };
 
-    handleDateEdit = (e) => {
-        let dateInput = document.createElement("input");
-        dateInput.setAttribute("type", "date");
-        let spanElement = e.target;
-        dateInput.value = formatLocalDateStringToIsoString(spanElement.textContent);
-        e.target.parentNode.replaceChild(dateInput, e.target);
-        dateInput.addEventListener("change", (e) => {
-            let newDate = e.target.value;
-            let id = e.target.parentNode.id;
-            this.todolist.editDate(id, newDate);
-        });
-    };
 
     handleSubmit = e => {
         e.preventDefault();
